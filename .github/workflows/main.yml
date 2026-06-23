@@ -10,7 +10,7 @@ on:
       - reopened
       - ready_for_review
     branches:
-      - main
+      - DEV
 
 permissions:
   contents: read
