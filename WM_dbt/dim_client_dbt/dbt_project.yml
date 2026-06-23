@@ -18,7 +18,7 @@ models:
   dim_client_dbt:
     staging:
       +schema: bronze
-      +materialized: view
+      +materialized: table
     silver:
       +schema: silver
       +materialized: table

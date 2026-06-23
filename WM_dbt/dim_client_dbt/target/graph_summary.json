@@ -1,0 +1,1 @@
+{"_invocation_id": "0da25245-d451-4882-8f51-0079e5e784fe", "linked": {"0": {"name": "source.dim_client_dbt.raw.src_client", "type": "source", "succ": [3]}, "1": {"name": "model.dim_client_dbt.dim_client", "type": "model"}, "2": {"name": "model.dim_client_dbt.silver_client", "type": "model"}, "3": {"name": "model.dim_client_dbt.stg_client", "type": "model"}}}

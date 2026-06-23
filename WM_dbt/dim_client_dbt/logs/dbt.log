@@ -1,0 +1,131 @@
+
+
+============================== 04:49:57.742309 | 0da25245-d451-4882-8f51-0079e5e784fe ==============================
+[0m04:49:57.742309 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m04:49:57.743161 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'fail_fast': 'False', 'warn_error': 'None', 'log_path': '/tmp/dbt/logs', 'debug': 'False', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'log_format': 'default', 'static_parser': 'True', 'target_path': '/tmp/dbt/target/', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m04:49:58.019316 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m04:49:58.578156 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m04:49:58.579564 [info ] [Dummy-1   ]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m04:49:59.788289 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- snapshots.dim_client_dbt
+[0m04:49:59.865419 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m04:49:59.867047 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m04:49:59.903895 [info ] [Dummy-1   ]: Found 3 models, 1 source, 475 macros
+[0m04:49:59.905774 [info ] [Dummy-1   ]: 
+[0m04:49:59.906280 [info ] [Dummy-1   ]: Concurrency: 4 threads (target='dev')
+[0m04:49:59.906714 [info ] [Dummy-1   ]: 
+[0m04:49:59.907402 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'master'
+[0m04:49:59.908931 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_SNOWFLAKE_RND'
+[0m04:49:59.985644 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND"
+[0m04:49:59.986172 [debug] [ThreadPool]: On list_SNOWFLAKE_RND: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND"} */
+show terse schemas in database SNOWFLAKE_RND
+    limit 10000
+[0m04:49:59.986620 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m04:50:00.294715 [debug] [ThreadPool]: SQL status: SUCCESS 7 in 0.308 seconds
+[0m04:50:00.298088 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_SNOWFLAKE_RND_bronze'
+[0m04:50:00.299103 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_SNOWFLAKE_RND, now list_SNOWFLAKE_RND_gold)
+[0m04:50:00.311762 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_SNOWFLAKE_RND_silver'
+[0m04:50:00.312625 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_bronze"
+[0m04:50:00.315999 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_gold"
+[0m04:50:00.319409 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_silver"
+[0m04:50:00.319962 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_bronze: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_bronze"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m04:50:00.320460 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_gold: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_gold"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m04:50:00.320950 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_silver: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_silver"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m04:50:00.321409 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m04:50:00.321872 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m04:50:00.322314 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m04:50:00.607566 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.286 seconds
+[0m04:50:00.608258 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.287 seconds
+[0m04:50:00.612370 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_gold"
+[0m04:50:00.613060 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.291 seconds
+[0m04:50:00.682675 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_bronze"
+[0m04:50:00.683244 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_gold: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_gold"} */
+show objects in SNOWFLAKE_RND.gold
+    limit 10000
+    
+;
+[0m04:50:00.684965 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_silver"
+[0m04:50:00.685448 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_bronze: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_bronze"} */
+show objects in SNOWFLAKE_RND.bronze
+    limit 10000
+    
+;
+[0m04:50:00.686219 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_silver: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_silver"} */
+show objects in SNOWFLAKE_RND.silver
+    limit 10000
+    
+;
+[0m04:50:00.772689 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.086 seconds
+[0m04:50:00.773552 [debug] [ThreadPool]: SQL status: SUCCESS 2 in 0.088 seconds
+[0m04:50:00.775471 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_bronze"
+[0m04:50:00.777462 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_gold"
+[0m04:50:00.778088 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_bronze: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_bronze"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m04:50:00.778893 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.092 seconds
+[0m04:50:00.779381 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_gold: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_gold"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m04:50:00.781423 [debug] [ThreadPool]: Using snowflake connection "list_SNOWFLAKE_RND_silver"
+[0m04:50:00.782185 [debug] [ThreadPool]: On list_SNOWFLAKE_RND_silver: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "connection_name": "list_SNOWFLAKE_RND_silver"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m04:50:00.838237 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.056 seconds
+[0m04:50:00.840097 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.057 seconds
+[0m04:50:00.842908 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.063 seconds
+[0m04:50:00.849722 [debug] [Thread-2 (]: Began running node model.dim_client_dbt.stg_client
+[0m04:50:00.850442 [info ] [Thread-2 (]: 1 of 1 START sql table model bronze.stg_client ................................. [RUN]
+[0m04:50:00.851062 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_SNOWFLAKE_RND_bronze, now model.dim_client_dbt.stg_client)
+[0m04:50:00.851546 [debug] [Thread-2 (]: Began compiling node model.dim_client_dbt.stg_client
+[0m04:50:00.860043 [debug] [Thread-2 (]: Writing injected SQL for node "model.dim_client_dbt.stg_client"
+[0m04:50:00.860782 [debug] [Thread-2 (]: Began executing node model.dim_client_dbt.stg_client
+[0m04:50:00.878159 [debug] [Thread-2 (]:  adapter: Dropping relation "SNOWFLAKE_RND"."BRONZE"."STG_CLIENT" because it is a view and target relation SNOWFLAKE_RND.bronze.stg_client is of type table.
+[0m04:50:00.887308 [debug] [Thread-2 (]: Applying DROP to: "SNOWFLAKE_RND"."BRONZE"."STG_CLIENT"
+[0m04:50:00.900009 [debug] [Thread-2 (]: Using snowflake connection "model.dim_client_dbt.stg_client"
+[0m04:50:00.900557 [debug] [Thread-2 (]: On model.dim_client_dbt.stg_client: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "node_id": "model.dim_client_dbt.stg_client"} */
+drop view if exists "SNOWFLAKE_RND"."BRONZE"."STG_CLIENT" cascade
+[0m04:50:00.901066 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m04:50:01.229809 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 0.329 seconds
+[0m04:50:01.246564 [debug] [Thread-2 (]: Writing runtime sql for node "model.dim_client_dbt.stg_client"
+[0m04:50:01.248273 [debug] [Thread-2 (]: Using snowflake connection "model.dim_client_dbt.stg_client"
+[0m04:50:01.248917 [debug] [Thread-2 (]: On model.dim_client_dbt.stg_client: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "dim_client_dbt", "target_name": "dev", "node_id": "model.dim_client_dbt.stg_client"} */
+create or replace transient table SNOWFLAKE_RND.bronze.stg_client
+         as
+        (-- Bronze layer: light clean/cast, 1:1 with source, no business logic
+with source as (
+    select * from SNOWFLAKE_RND.RAW.SRC_CLIENT
+)
+
+select
+    trim(client_id)             as client_id,
+    trim(client_name)           as client_name,
+    upper(trim(client_type))    as client_type,
+    trim(region)                as region,
+    initcap(trim(risk_profile)) as risk_profile,
+    initcap(trim(status))       as status,
+    source_system,
+    load_ts
+from source
+where client_id is not null
+        );
+[0m04:50:01.786332 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 0.537 seconds
+[0m04:50:01.817520 [info ] [Thread-2 (]: 1 of 1 OK created sql table model bronze.stg_client ............................ [[32mSUCCESS 1[0m in 0.96s]
+[0m04:50:01.818414 [debug] [Thread-2 (]: Finished running node model.dim_client_dbt.stg_client
+[0m04:50:01.820861 [debug] [Dummy-1   ]: Connection 'master' was properly closed.
+[0m04:50:01.821336 [debug] [Dummy-1   ]: Connection 'list_SNOWFLAKE_RND_gold' was properly closed.
+[0m04:50:01.821728 [debug] [Dummy-1   ]: Connection 'model.dim_client_dbt.stg_client' was properly closed.
+[0m04:50:01.822107 [debug] [Dummy-1   ]: Connection 'list_SNOWFLAKE_RND_silver' was properly closed.
+[0m04:50:01.822524 [info ] [Dummy-1   ]: 
+[0m04:50:01.822951 [info ] [Dummy-1   ]: Finished running 1 table model in 0 hours 0 minutes and 1.92 seconds (1.92s).
+[0m04:50:01.823779 [debug] [Dummy-1   ]: Command end result
+[0m04:50:01.845067 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m04:50:01.846982 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m04:50:01.852821 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m04:50:01.853290 [info ] [Dummy-1   ]: 
+[0m04:50:01.853896 [info ] [Dummy-1   ]: [32mCompleted successfully[0m
+[0m04:50:01.854332 [info ] [Dummy-1   ]: 
+[0m04:50:01.854808 [info ] [Dummy-1   ]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
+[0m04:50:01.856457 [debug] [Dummy-1   ]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 4.187871, "process_in_blocks": "0", "process_kernel_time": 0.63, "process_mem_max_rss": "500140", "process_out_blocks": "0", "process_user_time": 4.95}
+[0m04:50:01.857057 [debug] [Dummy-1   ]: Command `cli run` succeeded at 04:50:01.856811 after 4.19 seconds
+[0m04:50:01.857573 [debug] [Dummy-1   ]: Flushing usage events

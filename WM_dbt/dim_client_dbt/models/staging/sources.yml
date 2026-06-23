@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw
-    database: WEALTH_DB
+    database: SNOWFLAKE_RND
     schema: RAW
     tables:
       - name: src_client
