@@ -1,0 +1,47 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+
+    env:
+      SNOWFLAKE_CLI_FEATURES_ENABLE_DBT: true
+
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PAT }}
+
+      SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+      SNOWFLAKE_DATABASE: PROD_DB
+      SNOWFLAKE_SCHEMA: PROD_SCHEMA
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: snowflakedb/snowflake-actions@v3
+
+      - run: snow connection test -x
+
+      - name: Deploy dbt Project
+        run: |
+          snow dbt deploy prod_dbt_project \
+            --source ./WM_dbt/dim_client_dbt \
+            --dbt-version 1.10.15 \
+            --force -x \
+            --database PROD_DB \
+            --schema PROD_SCHEMA \
+            --debug 
+
+      - name: Run Production Build
+        run: |
+          snow dbt execute -x \
+            prod_dbt_project \
+            build \
+            --target prod
