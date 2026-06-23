@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: dim_client
+    description: "SCD Type 2 client dimension with surrogate key."
+    columns:
+      - name: client_sk
+        description: "Surrogate key, unique per client per change version."
+        tests: [unique, not_null]
+      - name: client_id
+        description: "Natural/business key from source system."
+        tests: [not_null]
+      - name: is_current_flag
+        description: "Y if this is the current version of the client record."
+        tests:
+          - accepted_values:
+              values: ['Y', 'N']

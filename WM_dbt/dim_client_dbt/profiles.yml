@@ -1,0 +1,28 @@
+# profiles.yml
+# When this project runs as a DBT PROJECT object inside Snowflake, account/user
+# can stay blank — it runs under your current Snowflake session.
+# (If you ever run this locally with dbt Core CLI instead, fill these in and
+# use env_var() for the password.)
+
+dim_client_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: ""
+      user: ""
+      role: DBT_ROLE
+      warehouse: DBT_WH
+      database: WEALTH_DB
+      schema: BRONZE
+      threads: 4
+
+    prod:
+      type: snowflake
+      account: ""
+      user: ""
+      role: DBT_ROLE
+      warehouse: DBT_WH
+      database: WEALTH_DB
+      schema: BRONZE
+      threads: 4

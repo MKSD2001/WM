@@ -1,0 +1,31 @@
+name: 'dim_client_dbt'
+version: '1.0.0'
+config-version: 2
+
+profile: 'dim_client_dbt'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  dim_client_dbt:
+    staging:
+      +schema: bronze
+      +materialized: view
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: table
+
+snapshots:
+  dim_client_dbt:
+    +target_schema: gold
