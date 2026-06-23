@@ -14,3 +14,4 @@ select
     load_ts
 from source
 where client_id is not null
+
