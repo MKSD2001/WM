@@ -1,0 +1,69 @@
+name: Incoming PR
+
+run-name: PR opened by ${{ github.actor }}
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    branches:
+      - DEV
+
+permissions:
+  contents: read
+
+jobs:
+  run-snowflake-test-dbt-job:
+    name: Run on Incoming PR
+    runs-on: ubuntu-latest
+
+    env:
+      SNOWFLAKE_CLI_FEATURES_ENABLE_DBT: true
+
+      # Snowflake Authentication
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PAT }} # Double-check your GitHub Secret name here
+
+      # Optional but recommended
+      SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+      # Database and Schema
+      SNOWFLAKE_DATABASE: ${{ vars.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_SCHEMA: ${{ vars.SNOWFLAKE_SCHEMA }}
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Snowflake CLI
+        uses: snowflakedb/snowflake-actions@v3
+
+      - name: Check Snowflake CLI Version
+        run: snow --version
+
+      - name: Test Snowflake Connection
+        run: snow connection test -x
+
+      - name: Deploy dbt Project
+        run: |
+          snow dbt deploy dimclient_dbt_project_object \
+            --source ./WM_dbt/dim_client_dbt \
+            --dbt-version 1.10.15 \
+            --force -x \
+            --database ${{ vars.SNOWFLAKE_DATABASE }} \
+            --schema ${{ vars.SNOWFLAKE_SCHEMA }}
+        
+      - name: List dbt Projects
+        run: snow dbt list -x
+
+      - name: Build and Test dbt Project
+        run: |
+          snow dbt execute -x \
+            dimclient_dbt_project_object \
+            build \
+            --target dev
