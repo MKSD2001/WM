@@ -1,0 +1,27 @@
+
+
+dim_client_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: FITZQEO-LI10013
+      user: DEJE08
+      role: ACCOUNTADMIN
+      warehouse: COMPUTE_WH
+      database: SNOWFLAKE_RND
+      schema: BRONZE
+      threads: 4
+
+    prod:
+      type: snowflake
+      account: FITZQEO-LI10013
+      user: DEJE08
+      role: ACCOUNTADMIN
+      warehouse: COMPUTE_WH
+      database: PROD_DB 
+      schema: BRONZE
+      threads: 4
+
+
+
