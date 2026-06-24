@@ -1,0 +1,54 @@
+version: 2
+
+sources:
+  - name: ods
+    database: SNOWFLAKE_RND
+    schema: ODS
+
+    tables:
+      - name: ods_client
+        identifier: CLIENT_CDC
+        loaded_at_field: CDC_TIMESTAMP
+
+        freshness:
+          warn_after:
+            count: 12
+            period: hour
+          error_after:
+            count: 24
+            period: hour
+      - name: ods_plan
+        identifier: PLAN_CDC
+        loaded_at_field: CDC_TIMESTAMP
+
+        freshness:
+          warn_after:
+            count: 12
+            period: hour
+          error_after:
+            count: 24
+            period: hour
+
+      - name: ods_planval
+        identifier: PLAN_VALUATION_HISTORY_CDC
+        loaded_at_field: CDC_TIMESTAMP
+
+        freshness:
+          warn_after:
+            count: 12
+            period: hour
+          error_after:
+            count: 24
+            period: hour
+
+      - name: ods_con_with
+        identifier: CONTRIBUTION_WITHDRAWAL_CDC
+        loaded_at_field: CDC_TIMESTAMP
+
+        freshness:
+          warn_after:
+            count: 12
+            period: hour
+          error_after:
+            count: 24
+            period: hour

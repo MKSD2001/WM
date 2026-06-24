@@ -1,0 +1,92 @@
+
+  
+    
+
+        create or replace transient table SNOWFLAKE_RND.gold.fact
+         as
+        (
+ 
+WITH valuation AS (
+ 
+    SELECT
+        PLAN_VALUATION_HISTORY_CLIENT_ID    AS CLIENT_ID,
+        PLAN_VALUATION_HISTORY_PLAN_ID      AS PLAN_ID,
+        PLAN_VALUATION_HISTORY_DATE         AS VALUATION_DATE,
+        PLAN_VALUATION_HISTORY_VALUE        AS PLAN_VALUE
+ 
+    FROM SNOWFLAKE_RND.silver.silver_plan_valuation
+ 
+),
+ 
+cw AS (
+ 
+    SELECT
+        CONTRIBUTION_WITHDRAWAL_CLIENT_ID   AS CLIENT_ID,
+        CONTRIBUTION_WITHDRAWAL_PLAN_ID     AS PLAN_ID,
+ 
+        SUM(
+            CASE
+                WHEN UPPER(CONTRIBUTION_WITHDRAWAL_TYPE)
+                     IN ('CONTRIBUTION','TOPUP')
+                THEN CONTRIBUTION_WITHDRAWAL_AMOUNT
+                ELSE 0
+            END
+        ) AS CONTRIBUTION_AMOUNT,
+ 
+        SUM(
+            CASE
+                WHEN UPPER(CONTRIBUTION_WITHDRAWAL_TYPE)
+                     = 'WITHDRAWAL'
+                THEN CONTRIBUTION_WITHDRAWAL_AMOUNT
+                ELSE 0
+            END
+        ) AS WITHDRAWAL_AMOUNT
+ 
+    FROM SNOWFLAKE_RND.silver.silver_contribution_withdrawal
+ 
+    GROUP BY
+        CONTRIBUTION_WITHDRAWAL_CLIENT_ID,
+        CONTRIBUTION_WITHDRAWAL_PLAN_ID
+ 
+)
+ 
+SELECT
+ 
+    dc.CLIENT_SK,
+ 
+    dp.PLAN_SK,
+ 
+    dd.DATE_KEY,
+ 
+    v.PLAN_VALUE,
+ 
+    COALESCE(cw.CONTRIBUTION_AMOUNT,0)
+        AS CONTRIBUTION_AMOUNT,
+ 
+    COALESCE(cw.WITHDRAWAL_AMOUNT,0)
+        AS WITHDRAWAL_AMOUNT,
+ 
+    v.PLAN_VALUE
+      + COALESCE(cw.CONTRIBUTION_AMOUNT,0)
+      - COALESCE(cw.WITHDRAWAL_AMOUNT,0)
+      AS NET_AUM
+ 
+FROM valuation v
+ 
+INNER JOIN SNOWFLAKE_RND.gold.dim_client dc
+    ON v.CLIENT_ID = dc.CLIENT_ID
+   AND dc.IS_CURRENT_FLAG = 'Y'
+ 
+INNER JOIN SNOWFLAKE_RND.gold.dim_plan dp
+    ON v.PLAN_ID = dp.PLAN_ID
+   AND dp.IS_CURRENT_FLAG = 'Y'
+ 
+INNER JOIN SNOWFLAKE_RND.gold.dim_date dd
+    ON v.VALUATION_DATE = dd.DATE_VALUE
+ 
+LEFT JOIN cw
+    ON v.CLIENT_ID = cw.CLIENT_ID
+   AND v.PLAN_ID = cw.PLAN_ID
+        );
+      
+  
