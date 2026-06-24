@@ -1,4 +1,10 @@
-SELECT
+
+  
+    
+
+        create or replace transient table SNOWFLAKE_RND.gold.dim_client
+         as
+        (SELECT
 
 
 MD5(
@@ -30,4 +36,7 @@ END AS IS_CURRENT_FLAG,
 CDC_TIMESTAMP
 
 
-FROM {{ ref('dim_client_snapshot') }}
+FROM SNOWFLAKE_RND.gold.dim_client_snapshot
+        );
+      
+  
