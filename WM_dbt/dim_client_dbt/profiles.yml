@@ -10,7 +10,7 @@ dim_client_dbt:
       role: ACCOUNTADMIN
       warehouse: COMPUTE_WH
       database: SNOWFLAKE_RND
-      schema: BRONZE
+      schema: PUBLIC
       threads: 4
 
     prod:
@@ -20,7 +20,7 @@ dim_client_dbt:
       role: ACCOUNTADMIN
       warehouse: COMPUTE_WH
       database: PROD_DB 
-      schema: BRONZE
+      schema: PUBLIC
       threads: 4
 
 

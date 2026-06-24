@@ -1,4 +1,10 @@
-WITH client_dedup AS (
+
+  
+    
+
+        create or replace transient table SNOWFLAKE_RND.silver.silver_client
+         as
+        (WITH client_dedup AS (
 
 SELECT
     CLIENT_ID,
@@ -19,7 +25,7 @@ SELECT
         ORDER BY CDC_TIMESTAMP DESC
     ) AS RN
 
-FROM {{ source('ods','ods_client') }} WHERE CDC_ACTION <> 'DELETE'
+FROM SNOWFLAKE_RND.ODS.CLIENT_CDC WHERE CDC_ACTION <> 'DELETE'
 )
 
 SELECT
@@ -48,3 +54,6 @@ MD5(
 
 FROM client_dedup
 WHERE RN = 1
+        );
+      
+  

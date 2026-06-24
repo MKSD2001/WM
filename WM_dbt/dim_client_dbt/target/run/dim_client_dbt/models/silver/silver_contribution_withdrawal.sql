@@ -1,0 +1,38 @@
+
+  
+    
+
+        create or replace transient table SNOWFLAKE_RND.silver.silver_contribution_withdrawal
+         as
+        (
+
+WITH latest_record AS (
+
+    SELECT
+        *,
+        ROW_NUMBER() OVER (
+            PARTITION BY CONTRIBUTION_WITHDRAWAL_KEY
+            ORDER BY CDC_TIMESTAMP DESC
+        ) AS RN
+
+    FROM SNOWFLAKE_RND.ODS.CONTRIBUTION_WITHDRAWAL_CDC
+
+)
+
+SELECT
+    CONTRIBUTION_WITHDRAWAL_KEY,
+    CONTRIBUTION_WITHDRAWAL_PLAN_ID,
+    CONTRIBUTION_WITHDRAWAL_CLIENT_ID,
+    CONTRIBUTION_WITHDRAWAL_AMOUNT,
+    CONTRIBUTION_WITHDRAWAL_TYPE,
+    CONTRIBUTION_WITHDRAWAL_SPS_DATE,
+    CONTRIBUTION_WITHDRAWAL_FIND_DATE,
+    CDC_TIMESTAMP
+
+FROM latest_record
+
+WHERE RN = 1
+AND CDC_ACTION <> 'DELETE'
+        );
+      
+  
